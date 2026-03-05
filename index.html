@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA SYNDICATE // LIGHT IT UP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>NOVA SYNDICATE | ELITE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff2d95;
-            --secondary: #9d50bb;
-            --accent: #00f2ff;
-            --bg: #050508;
-            --grid: rgba(157, 80, 187, 0.15);
+            --primary: #ff2d95; /* The "Light it up" Pink */
+            --bg: #08080c;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,210 +19,221 @@
         body {
             background-color: var(--bg);
             color: white;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            line-height: 1.5;
         }
 
-        /* --- CYBERPUNK BACKGROUND ELEMENTS --- */
-        .scanlines {
+        /* --- PROFESSIONAL BACKGROUND ANIMATION --- */
+        .bg-animate {
             position: fixed;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.4) 50%);
-            background-size: 100% 4px;
-            z-index: 10;
-            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 45, 149, 0.05) 0%, transparent 50%),
+                linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 50px 50px,
+                linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
         }
 
-        .grid-floor {
-            position: fixed;
-            bottom: -200px;
-            left: -50%;
-            width: 200%;
-            height: 80%;
-            background-image: 
-                linear-gradient(var(--grid) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 60px 60px;
-            transform: rotateX(65deg);
-            animation: moveGrid 20s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes moveGrid {
-            from { background-position: 0 0; }
-            to { background-position: 0 100%; }
-        }
-
-        /* --- NAVIGATION --- */
+        /* --- HEADER --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
-            z-index: 100;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0; z-index: 100;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
         }
+
+        .logo span { color: var(--primary); }
 
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a {
             text-decoration: none;
-            color: #64748b;
-            font-weight: 700;
-            text-transform: uppercase;
+            color: var(--text-dim);
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
+        .nav-links a:hover { color: white; }
 
-        .nav-links a:hover, .active { color: white; border-bottom: 2px solid var(--primary); }
-
-        /* --- HERO CONTENT --- */
-        .hero {
-            flex: 1;
+        /* --- MAIN HERO --- */
+        main {
+            padding: 100px 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            z-index: 20;
         }
 
-        .badge {
-            font-family: 'Orbitron', sans-serif;
-            border: 1px solid var(--primary);
+        .kicker {
+            font-family: 'Space Grotesk', sans-serif;
             color: var(--primary);
-            padding: 5px 15px;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            margin-bottom: 2rem;
-            background: rgba(255, 45, 149, 0.1);
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
+        .kicker::before { content: ''; width: 30px; height: 1px; background: var(--primary); }
 
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 12vw, 7rem);
-            line-height: 0.85;
-            background: linear-gradient(to bottom, #fff, var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 15px rgba(255, 45, 149, 0.4));
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 10vw, 7.5rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -3px;
+            margin-bottom: 1.5rem;
         }
 
         .slogan {
-            font-size: clamp(1rem, 4vw, 1.4rem);
-            color: #94a3b8;
-            max-width: 600px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-size: clamp(1rem, 3vw, 1.5rem);
             font-weight: 300;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            border-left: 2px solid var(--primary);
+            padding-left: 20px;
         }
 
-        /* --- BUTTONS --- */
-        .cta {
-            margin-top: 3.5rem;
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        /* --- BUTTONS (GLASS STYLE) --- */
+        .actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
         .btn {
-            padding: 1.2rem 2.5rem;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 2px;
+            padding: 1.2rem 2.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 2px;
             text-decoration: none;
-            transition: 0.3s;
-            position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 2px;
         }
 
-        .btn-fill {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        .btn-main {
+            background: white;
+            color: black;
+            border: 1px solid white;
+        }
+
+        .btn-main:hover {
+            background: transparent;
             color: white;
-            box-shadow: 0 0 20px rgba(255, 45, 149, 0.4);
-            border: none;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
 
-        .btn-outline {
-            border: 1px solid #1e293b;
+        .btn-sec {
+            background: var(--glass);
             color: white;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(5px);
         }
 
-        .btn:hover { transform: translateY(-3px) scale(1.05); }
-        .btn-outline:hover { border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
+        .btn-sec:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
 
-        /* --- FOOTER STATUS --- */
-        .status-bar {
+        /* --- HUD FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border);
             padding: 2rem 5%;
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            z-index: 100;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            background: rgba(0,0,0,0.3);
         }
 
-        .stat { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; letter-spacing: 1px; color: #475569; }
-        .stat b { color: white; text-transform: uppercase; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; }
-        .green { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
-        .yellow { background: #eab308; box-shadow: 0 0 8px #eab308; }
+        .stat-box p {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
 
-        /* Mobile Optimization */
+        .stat-box h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .stat-box span { color: var(--primary); }
+
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero { text-align: left; align-items: flex-start; }
-            .cta { width: 100%; flex-direction: column; }
-            .btn { text-align: center; }
-            .status-bar { justify-content: flex-start; gap: 1rem; }
+            main { padding-top: 60px; }
+            h1 { letter-spacing: -1px; }
+            .btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="scanlines"></div>
-    <div class="grid-floor"></div>
+    <div class="bg-animate"></div>
 
     <nav>
-        <div class="logo">NOVA SYNDICATE</div>
+        <div class="logo">NOVA <span>//</span> SYNDICATE</div>
         <div class="nav-links">
-            <a href="#" class="active">Home</a>
+            <a href="#">Intelligence</a>
             <a href="#">Network</a>
-            <a href="#">Status</a>
+            <a href="#">Archive</a>
         </div>
     </nav>
 
-    <main class="hero">
-        <div class="badge">✦ OFFICIAL NETWORK // EST 2026</div>
+    <main>
+        <div class="kicker">Authorized Personnel Only</div>
         <h1>NOVA<br>SYNDICATE</h1>
-        <p class="slogan">We don’t play the game — we light it up.</p>
+        <p class="slogan">We don’t play the game — <b>we light it up.</b></p>
         
-        <div class="cta">
-            <a href="https://discord.gg/YOUR_INVITE" class="btn btn-fill">Join Discord</a>
-            <a href="#" class="btn btn-outline">Review Team</a>
+        <div class="actions">
+            <a href="#" class="btn btn-main">Initialize Join</a>
+            <a href="#" class="btn btn-sec">Roster Database</a>
         </div>
     </main>
 
-    <footer class="status-bar">
-        <div class="stat"><div class="dot green"></div> DISCORD <b>Online</b></div>
-        <div class="stat"><div class="dot yellow"></div> MEMBERS <b>1.2k+</b></div>
-        <div class="stat"><div class="dot green"></div> SYSTEM <b>Stable</b></div>
+    <footer>
+        <div class="stat-box">
+            <p>Connection</p>
+            <h4>Status: <span>Encrypted</span></h4>
+        </div>
+        <div class="stat-box">
+            <p>Active Agents</p>
+            <h4>1,240 <span>Online</span></h4>
+        </div>
+        <div class="stat-box">
+            <p>Local Time</p>
+            <h4 id="clock">00:00:00</h4>
+        </div>
     </footer>
+
+    <script>
+        // Professional Touch: Live HUD Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 
 </body>
 </html>
