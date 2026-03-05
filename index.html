@@ -2,130 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NOVA SYNDICATE | ELITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff2d95; /* The "Light it up" Pink */
+            --primary: #ff2d95;
             --bg: #08080c;
             --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
             --text-dim: #94a3b8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
+        /* Prevent scrolling issues on mobile */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background-color: var(--bg);
             color: white;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            line-height: 1.5;
         }
 
-        /* --- PROFESSIONAL BACKGROUND ANIMATION --- */
+        /* --- BACKGROUND (Lowest Layer) --- */
         .bg-animate {
             position: fixed;
             inset: 0;
-            z-index: -1;
+            z-index: 1; /* Low z-index */
             background: 
                 radial-gradient(circle at 50% 50%, rgba(255, 45, 149, 0.05) 0%, transparent 50%),
-                linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 50px 50px,
-                linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 50px 50px;
-            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+                linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 40px 40px,
+                linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 90%);
+            pointer-events: none;
         }
 
-        /* --- HEADER --- */
+        /* --- CONTENT WRAPPER (High Layer) --- */
+        .wrapper {
+            position: relative;
+            z-index: 10; /* Keeps everything above the BG */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
+            height: 70px;
             border-bottom: 1px solid var(--border);
+            background: rgba(8, 8, 12, 0.8);
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0; z-index: 100;
         }
 
         .logo {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 1.1rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .logo span { color: var(--primary); }
 
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .nav-links a:hover { color: white; }
-
-        /* --- MAIN HERO --- */
         main {
-            padding: 100px 5% 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            min-height: 80vh;
+            flex: 1;
+            padding: 2rem 5%;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .kicker {
-            font-family: 'Space Grotesk', sans-serif;
             color: var(--primary);
-            font-size: 0.75rem;
-            letter-spacing: 5px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-
-        .kicker::before { content: ''; width: 30px; height: 1px; background: var(--primary); }
 
         h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 10vw, 7.5rem);
-            font-weight: 700;
+            font-size: clamp(2.5rem, 12vw, 6rem);
             line-height: 0.9;
-            letter-spacing: -3px;
             margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
         .slogan {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            font-weight: 300;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
             color: var(--text-dim);
-            max-width: 600px;
-            margin-bottom: 3rem;
-            border-left: 2px solid var(--primary);
-            padding-left: 20px;
+            max-width: 500px;
+            margin-bottom: 2.5rem;
         }
 
-        /* --- BUTTONS (GLASS STYLE) --- */
-        .actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        /* --- BUTTONS (Fixed for Mobile) --- */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+            justify-content: center;
+            flex-wrap: wrap; /* Allows stacking on small phones */
+        }
 
         .btn {
-            padding: 1.2rem 2.8rem;
-            font-size: 0.85rem;
+            flex: 1; /* Buttons take equal width */
+            min-width: 160px; /* Prevents them from getting too skinny */
+            padding: 1.2rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border-radius: 2px;
+            border-radius: 4px;
+            transition: 0.3s;
+            text-align: center;
+            display: inline-block;
         }
 
         .btn-main {
@@ -134,106 +132,27 @@
             border: 1px solid white;
         }
 
-        .btn-main:hover {
-            background: transparent;
-            color: white;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-        }
-
         .btn-sec {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             border: 1px solid var(--border);
-            backdrop-filter: blur(5px);
         }
 
-        .btn-sec:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
+        .btn:active { transform: scale(0.95); } /* Touch feedback */
 
         /* --- HUD FOOTER --- */
         footer {
+            padding: 1.5rem 5%;
             border-top: 1px solid var(--border);
-            padding: 2rem 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0,0,0,0.4);
+            font-size: 0.7rem;
         }
 
-        .stat-box p {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
+        .stat span { color: var(--primary); font-weight: bold; }
 
-        .stat-box h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-        }
-
-        .stat-box span { color: var(--primary); }
-
-        /* --- MOBILE OPTIMIZATION --- */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            main { padding-top: 60px; }
-            h1 { letter-spacing: -1px; }
-            .btn { width: 100%; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-animate"></div>
-
-    <nav>
-        <div class="logo">NOVA <span>//</span> SYNDICATE</div>
-        <div class="nav-links">
-            <a href="#">Intelligence</a>
-            <a href="#">Network</a>
-            <a href="#">Archive</a>
-        </div>
-    </nav>
-
-    <main>
-        <div class="kicker">Authorized Personnel Only</div>
-        <h1>NOVA<br>SYNDICATE</h1>
-        <p class="slogan">We don’t play the game — <b>we light it up.</b></p>
-        
-        <div class="actions">
-            <a href="#" class="btn btn-main">Initialize Join</a>
-            <a href="#" class="btn btn-sec">Roster Database</a>
-        </div>
-    </main>
-
-    <footer>
-        <div class="stat-box">
-            <p>Connection</p>
-            <h4>Status: <span>Encrypted</span></h4>
-        </div>
-        <div class="stat-box">
-            <p>Active Agents</p>
-            <h4>1,240 <span>Online</span></h4>
-        </div>
-        <div class="stat-box">
-            <p>Local Time</p>
-            <h4 id="clock">00:00:00</h4>
-        </div>
-    </footer>
-
-    <script>
-        // Professional Touch: Live HUD Clock
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleTimeString();
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
-
-</body>
-</html>
+        /* --- MOBILE SPECIFIC FIXES --- */
+        @media (max-width: 480px) {
+            main { padding-top: 40px; justify-content: flex-start; }
+            h1 { margin-top: 20px; }
