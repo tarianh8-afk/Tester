@@ -2,157 +2,200 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NOVA SYNDICATE | ELITE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA SYNDICATE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #ff2d95;
-            --bg: #08080c;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --text-dim: #94a3b8;
-        }
-
-        /* Prevent scrolling issues on mobile */
-        html, body {
+        /* Essential Reset */
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg);
-            color: white;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050508; /* Deep Midnight */
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* --- BACKGROUND (Lowest Layer) --- */
-        .bg-animate {
+        /* High-Performance Static Grid (Won't crash phones) */
+        .bg-overlay {
             position: fixed;
-            inset: 0;
-            z-index: 1; /* Low z-index */
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(255, 45, 149, 0.05) 0%, transparent 50%),
-                linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 40px 40px,
-                linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 40px 40px;
-            mask-image: radial-gradient(ellipse at center, black, transparent 90%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 45, 149, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 45, 149, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* --- CONTENT WRAPPER (High Layer) --- */
-        .wrapper {
+        /* Layout Container */
+        .container {
             position: relative;
-            z-index: 10; /* Keeps everything above the BG */
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
+        /* Navigation */
         nav {
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-            height: 70px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(8, 8, 12, 0.8);
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 1.2rem;
             letter-spacing: 2px;
+            font-weight: 700;
         }
 
-        .logo span { color: var(--primary); }
+        .logo span { color: #ff2d95; }
 
+        /* Hero Content */
         main {
             flex: 1;
-            padding: 2rem 5%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 60px 0;
         }
 
         .kicker {
-            color: var(--primary);
-            font-size: 0.7rem;
-            letter-spacing: 4px;
+            color: #ff2d95;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            font-size: 0.7rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 12vw, 6rem);
+            font-size: clamp(2.8rem, 12vw, 6.5rem);
             line-height: 0.9;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .slogan {
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
-            color: var(--text-dim);
-            max-width: 500px;
-            margin-bottom: 2.5rem;
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            color: #94a3b8;
+            max-width: 600px;
+            margin-bottom: 40px;
         }
 
-        /* --- BUTTONS (Fixed for Mobile) --- */
-        .actions {
+        /* Buttons - High Visibility Fix */
+        .btn-container {
             display: flex;
-            gap: 1rem;
+            gap: 15px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             justify-content: center;
-            flex-wrap: wrap; /* Allows stacking on small phones */
         }
 
         .btn {
-            flex: 1; /* Buttons take equal width */
-            min-width: 160px; /* Prevents them from getting too skinny */
-            padding: 1.2rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            display: block;
+            padding: 18px 30px;
             text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             border-radius: 4px;
             transition: 0.3s;
+            flex: 1;
             text-align: center;
-            display: inline-block;
         }
 
-        .btn-main {
-            background: white;
-            color: black;
-            border: 1px solid white;
+        .btn-primary {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
         }
 
-        .btn-sec {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            border: 1px solid var(--border);
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
 
-        .btn:active { transform: scale(0.95); } /* Touch feedback */
-
-        /* --- HUD FOOTER --- */
+        /* Status Footer */
         footer {
-            padding: 1.5rem 5%;
-            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-around;
-            background: rgba(0,0,0,0.4);
             font-size: 0.7rem;
+            color: #64748b;
         }
 
-        .stat span { color: var(--primary); font-weight: bold; }
+        .stat b { color: #ff2d95; }
 
-        /* --- MOBILE SPECIFIC FIXES --- */
-        @media (max-width: 480px) {
-            main { padding-top: 40px; justify-content: flex-start; }
-            h1 { margin-top: 20px; }
+        /* Responsive stacking for Mobile */
+        @media (max-width: 600px) {
+            .btn-container {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+            .btn {
+                width: 100%;
+            }
+            footer {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <div class="container">
+        <nav>
+            <div class="logo">NOVA <span>//</span> SYNDICATE</div>
+            <div style="font-size: 0.7rem; opacity: 0.5;">v4.0 STABLE</div>
+        </nav>
+
+        <main>
+            <p class="kicker">Connection Established</p>
+            <h1>NOVA<br>SYNDICATE</h1>
+            <p class="slogan">We don’t play the game — <b>we light it up.</b></p>
+            
+            <div class="btn-container">
+                <a href="#" class="btn btn-primary">Join Discord</a>
+                <a href="#" class="btn btn-secondary">Our Team</a>
+            </div>
+        </main>
+
+        <footer>
+            <div class="stat">NETWORK: <b>ENCRYPTED</b></div>
+            <div class="stat">SQUAD: <b>1.2K ACTIVE</b></div>
+            <div class="stat">REGION: <b>GLOBAL</b></div>
+        </footer>
+    </div>
+
+</body>
+</html>
